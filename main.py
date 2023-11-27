@@ -180,7 +180,7 @@ def DDQN_optimize_model():
 
 
 if torch.cuda.is_available():
-    num_episodes = 5  #600000
+    num_episodes = 600  #600000
 else:
     num_episodes = 50
 
