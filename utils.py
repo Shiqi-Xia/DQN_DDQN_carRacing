@@ -1,3 +1,6 @@
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 import random
 import torch
 import matplotlib.pyplot as plt
@@ -19,7 +22,7 @@ class ReplayMemory(object):
 
 
 
-def plot_durations(episode_durations, is_ipython, show_result=False):
+def plot_durations(episode_durations, show_result=False):
     plt.figure(1)
     durations_t = torch.tensor(episode_durations, dtype=torch.float)
     if show_result:
@@ -36,11 +39,11 @@ def plot_durations(episode_durations, is_ipython, show_result=False):
         means = torch.cat((torch.zeros(99), means))
         plt.plot(means.numpy())
     plt.pause(0.001)  # pause a bit so that plots are updated
-    if is_ipython:
-        if not show_result:
-            display.display(plt.gcf())
-            display.clear_output(wait=True)
-        else:
-            display.display(plt.gcf())
+    # if is_ipython:
+    #     if not show_result:
+    #         display.display(plt.gcf())
+    #         display.clear_output(wait=True)
+    #     else:
+    #         display.display(plt.gcf())
 
 

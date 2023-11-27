@@ -1,3 +1,7 @@
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+
 import gymnasium as gym
 import matplotlib
 import matplotlib.pyplot as plt
@@ -176,7 +180,7 @@ def DDQN_optimize_model():
 
 
 if torch.cuda.is_available():
-    num_episodes = 100  #600000
+    num_episodes = 5  #600000
 else:
     num_episodes = 50
 
@@ -224,8 +228,8 @@ for i_episode in range(num_episodes):
         stacked_next_state = torch.stack(frames).unsqueeze(0)
         memory.push(Transition, stacked_state, action, stacked_next_state, reward_tensor)
         stacked_state = stacked_next_state
-        # DQN_optimize_model()
-        DDQN_optimize_model()
+        DQN_optimize_model()
+        # DDQN_optimize_model()
         target_net_state_dict = target_net.state_dict()
         policy_net_state_dict = policy_net.state_dict()
         for key in policy_net_state_dict:
@@ -242,9 +246,9 @@ for i_episode in range(num_episodes):
                     torch.save(policy_net.state_dict(), "modelcar10.pt")
                     print("save model")
             total_reward = 0
-            # plot_durations(episode_durations, is_ipython)
+            plot_durations(episode_durations)
             break
 print('Complete')
-# plot_durations(episode_durations, is_ipython, show_result=True)
+plot_durations(episode_durations, show_result=True)
 plt.ioff()
 plt.show()
